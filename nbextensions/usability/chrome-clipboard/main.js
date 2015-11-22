@@ -29,7 +29,7 @@ define([
         if (name == '') {
             name = uniqueid() + '.' + msg.match(/data:image\/(\S+);/)[1];
         }
-        var path = path.substring(0, path.lastIndexOf('/')) + '/';
+        var path = path.substring(0, path.lastIndexOf('/')) + 'images/';
         if (path === '/') path = '';
         var url = '//' + location.host + '/api/contents/' + path + name;
         var img = msg.replace(/(^\S+,)/, ''); // strip header
@@ -44,7 +44,7 @@ define([
             async: false,
             success: function (data, status, xhr) {
                 var new_cell = IPython.notebook.insert_cell_below('markdown');
-                var str = '<img  src="' + name + '"/>';
+                var str = '<img  src="images/' + name + '"/>';
                 new_cell.set_text(str);
                 new_cell.execute();
             },
@@ -54,6 +54,7 @@ define([
         };
         $.ajax(url, settings);
     };
+
 
     /**
      * Initialize extension
